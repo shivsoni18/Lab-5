@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Encyclopedia</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        .animal-section {
+            background: #f8f9fa;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .image-container img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Dark theme overrides */
+        [data-bs-theme="dark"] .animal-section {
+            background: #212529;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-outline-secondary" id="themeToggle">
+            <i class="bi bi-moon-stars-fill"></i>
+        </button>
+    </div>
+
+    <main class="animal-section">
+        <div class="container">
+            <!-- Title Aligned Left -->
+            <h1 class="section-title text-start">Animals</h1>
+
+            <!-- Search Bar & Category Links -->
+            <div class="d-flex justify-content-start align-items-center gap-3 flex-wrap">
+                <div class="input-group search-bar" style="max-width: 300px;">
+                    <input type="text" class="form-control" placeholder="Search Animals">
+                    <button class="btn btn-primary">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+
+                <div class="category-links">
+                    <a href="#" class="active">Adaptations</a>
+                    <a href="#">Behavior</a>
+                    <a href="#">Conservation</a>
+                    <a href="#">Diversity</a>
+                </div>
+            </div>
+
+            <!-- Centered Images -->
+            <div class="image-container">
+                <img src="images/penguins.jpg" alt="Penguins">
+                <img src="images/puppies.jpg" alt="Dogs">
+                <img src="images/Cat.jpg" alt="Cat">
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS + Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // Check localStorage for theme preference
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        htmlElement.setAttribute('data-bs-theme', currentTheme);
+
+        // Update button icon based on current theme
+        function updateButtonIcon() {
+            const isDark = htmlElement.getAttribute('data-bs-theme') === 'dark';
+            themeToggle.innerHTML = isDark 
+                ? '<i class="bi bi-sun-fill"></i>'
+                : '<i class="bi bi-moon-stars-fill"></i>';
+        }
+
+        // Toggle theme function
+        function toggleTheme() {
+            const isDark = htmlElement.getAttribute('data-bs-theme') === 'dark';
+            const newTheme = isDark ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-bs-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateButtonIcon();
+        }
+
+        // Initial icon update
+        updateButtonIcon();
+
+        // Event listener
+        themeToggle.addEventListener('click', toggleTheme);
+    </script>
+</body>
+</html>
